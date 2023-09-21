@@ -28,3 +28,5 @@ train
 book
 shoe
 hat
+plane
+smart
