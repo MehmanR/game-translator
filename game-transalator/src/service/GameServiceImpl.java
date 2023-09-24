@@ -6,6 +6,9 @@ import service.interfaces.GameServiceInter;
 import util.InputUtil;
 import util.RandomUtil;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class GameServiceImpl implements GameServiceInter {
@@ -20,6 +23,7 @@ public class GameServiceImpl implements GameServiceInter {
         String[] engWordsDinamicArr = fileServiceInter.addWordToDinamicArr(GlobalStrings.ENG_FILE_NAME);
         String[] azeWordsDinamicArr = fileServiceInter.addWordToDinamicArr(GlobalStrings.AZE_FILE_NAME);
 
+        LocalDateTime startTimer = LocalDateTime.now();
         for (int i = 0; i < 10; i++) {
             int randomIndex = RandomUtil.getRandomNumber(engWordsDinamicArr.length);
             String randomWord = engWordsDinamicArr[randomIndex];
@@ -34,35 +38,41 @@ public class GameServiceImpl implements GameServiceInter {
 
             if (enteredWord.equals(azeWord)) {
                 point++;
-                if (wrong == 3) {
-                    point--;
-                }
             } else {
                 wrong++;
             }
+            if (wrong == 3) {
+                point--;
+            }
         }
+        LocalDateTime endTimer = LocalDateTime.now();
+        Duration duration = Duration.between(startTimer,endTimer);
+        long secondsOfGame = duration.getSeconds();
+
         System.out.println("----------------- END -----------------");
         if (point == 0 || point == 1 || point == 2) {
-            System.out.println("Your point : + " + point);
+            System.out.println("Your point :  " + point);
             System.out.println("Your English level A0");
 
         } else if (point == 3 || point == 4) {
-            System.out.println("Your point : + " + point);
+            System.out.println("Your point :  " + point);
             System.out.println("Your English level A1");
 
         } else if (point == 5 || point == 6) {
-            System.out.println("Your point : + " + point);
+            System.out.println("Your point :  " + point);
             System.out.println("Your English level B1");
 
         } else if (point == 7 || point == 8) {
-            System.out.println("Your point : + " + point);
+            System.out.println("Your point :  " + point);
             System.out.println("Your English level C1");
 
         } else if (point == 9 || point == 10) {
-            System.out.println("Your point : + " + point);
+            System.out.println("Your point :  " + point);
             System.out.println("Your English level C2");
-
         }
+        String log = "Time - " +startTimer.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " Point- " + point + ", Game time: " + secondsOfGame + " seconds";
+        fileServiceInter.writeLogToFile(log,GlobalStrings.LOG_FILE_NAME);
+
     }
 
     @Override
