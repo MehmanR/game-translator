@@ -16,8 +16,6 @@ public class GameServiceImpl implements GameServiceInter {
 
         int point = 0;
         int wrong = 0;
-        boolean  isShowed = false;
-
 
         String[] engWordsDinamicArr = fileServiceInter.addWordToDinamicArr(GlobalStrings.ENG_FILE_NAME);
         String[] azeWordsDinamicArr = fileServiceInter.addWordToDinamicArr(GlobalStrings.AZE_FILE_NAME);
@@ -28,16 +26,48 @@ public class GameServiceImpl implements GameServiceInter {
 
             int foundedIndex = getIndex(randomWord);
             String azeWord = azeWordsDinamicArr[foundedIndex];
+            String enteredWord = "";
 
-            
             System.out.println(randomWord);
-            String enteredWord = InputUtil.requeireString("Enter translat of the word ");
+
+            enteredWord = InputUtil.requeireString("Enter translat of the word ");
+
             if (enteredWord.equals(azeWord)) {
                 point++;
+                if (wrong == 3) {
+                    point--;
+                }
             } else {
                 wrong++;
             }
         }
+        System.out.println("----------------- END -----------------");
+        if (point == 0 || point == 1 || point == 2) {
+            System.out.println("Your point : + " + point);
+            System.out.println("Your English level A0");
+
+        } else if (point == 3 || point == 4) {
+            System.out.println("Your point : + " + point);
+            System.out.println("Your English level A1");
+
+        } else if (point == 5 || point == 6) {
+            System.out.println("Your point : + " + point);
+            System.out.println("Your English level B1");
+
+        } else if (point == 7 || point == 8) {
+            System.out.println("Your point : + " + point);
+            System.out.println("Your English level C1");
+
+        } else if (point == 9 || point == 10) {
+            System.out.println("Your point : + " + point);
+            System.out.println("Your English level C2");
+
+        }
+    }
+
+    @Override
+    public void showHistory() {
+        fileServiceInter.readFile(GlobalStrings.LOG_FILE_NAME);
     }
 
 

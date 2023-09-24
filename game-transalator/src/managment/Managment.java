@@ -28,6 +28,8 @@ public class Managment {
                 case 3:
                     break;
                 case 0:
+                    System.out.println("BYE🧑‍💻🙋‍♂️🙌");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Wrong input!!!");

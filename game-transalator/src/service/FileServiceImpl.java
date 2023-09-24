@@ -54,4 +54,23 @@ public class FileServiceImpl implements FileServiceInter {
         }
     }
 
+    public void writeLogToFile(String log, String fileName){
+        try(FileWriter fileWriter = new FileWriter(fileName,true)) {
+            fileWriter.write(log+ "\n");
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void readFile (String fileName){
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            String reader = bufferedReader.readLine();
+            System.out.println(reader);
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
 }
