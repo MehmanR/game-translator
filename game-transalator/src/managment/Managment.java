@@ -1,5 +1,4 @@
 package managment;
-
 import enums.MenuEnum;
 import files.GlobalStrings;
 import service.FileServiceImpl;
@@ -7,10 +6,8 @@ import service.GameServiceImpl;
 import service.interfaces.FileServiceInter;
 import service.interfaces.GameServiceInter;
 import util.InputUtil;
-
 import java.io.IOException;
 import java.util.InputMismatchException;
-
 public class Managment {
     FileServiceInter fileServiceInter = new FileServiceImpl();
     GameServiceInter gameServiceInter = new GameServiceImpl();
@@ -37,7 +34,8 @@ public class Managment {
                 case 2:
                     fileServiceInter.addWordToFile(GlobalStrings.ENG_FILE_NAME, GlobalStrings.AZE_FILE_NAME);
                     break;
-                case 3:gameServiceInter.showHistory();
+                case 3:
+                    gameServiceInter.showHistory();
                     break;
                 case 0:
                     System.out.println("BYE 🙋‍♂️");
@@ -46,13 +44,9 @@ public class Managment {
                 default:
                     System.out.println("Wrong input!!!");
             }
-
         }
-
-        }
-
-
     }
+}
 
 
 

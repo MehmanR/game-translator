@@ -1,5 +1,7 @@
 package service;
 
+import enums.EnumException;
+import exception.AppException;
 import service.interfaces.FileServiceInter;
 import util.InputUtil;
 
@@ -18,6 +20,10 @@ public class FileServiceImpl implements FileServiceInter {
                 String engWord = InputUtil.requeireString("Enter " + (i + 1) + ". English word  ");
                 String azeWord = InputUtil.requeireString("Enter " + (i + 1) + ". Azerbaijan word  ");
 
+                if (!engWord.contains("([a-zA-Z0-9]+)|(['()+,\\-.=]+)") || !azeWord.contains("([a-zA-Z0-9]+)|(['()+,\\-.=]+)")) {
+                    throw new AppException(EnumException.ILLEGAL_CHARACTER_EXCEPTION);
+                }
+
                 buffer.write(engWord);
                 buffer.newLine();
                 buffer2.write(azeWord);
@@ -30,6 +36,8 @@ public class FileServiceImpl implements FileServiceInter {
             ex.printStackTrace();
         } catch (InputMismatchException ex) {
             System.out.println("Wrong input!");
+        }catch (AppException ex){
+            System.out.println(ex.getMessage());
         }
     }
 
